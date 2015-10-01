@@ -1,12 +1,12 @@
 $(document).ready( function() {
-  window.onload = drawsvg(500, 700, [9,2,0,10,7]);
+  window.onload = drawsvg(500, 700, [29,56,4,22,9,2,1,10,7]);
 });
 
 function drawsvg(height, width, data) {
   var svg = new bars(height, width);
   svg.setxscale(data.length, width);
   svg.setyscale(d3.max(data), height);
-  svg.drawsvg(data);
+  setTimeout(svg.drawsvg.bind(null, data), 1000);
   insertion(data, svg, height, 1);
 }
 
@@ -17,19 +17,9 @@ function bars(height, width) {
   this.height = height;
   this.data = [];
   this.bars;
-  this.q = [];
 }
 
 bars.prototype = new bars();
-
-bars.prototype.add = function(state) {
-  this.q.push(state);
-  console.log(this.q);
-  this.q.forEach( function(d) {
-    console.log(d.state);
-  });
-
-};
 
 bars.prototype.setxscale = function(npts, width) {
     this.xscale = d3.scale.linear()
@@ -69,7 +59,6 @@ bars.prototype.setdata = function(A) {
 bars.prototype.drawsvg = function(data) {
   //add data state to Q
   this.createdata(data);
-  console.log('draw svg');
 
   this.bars = this.svg.selectAll("rect")
                               .data(this.data);
