@@ -1,12 +1,21 @@
 $(document).ready( function() {
-  window.onload = drawsvg(500, 700, [29,56,4,22,9,2,1,10,7]);
+  var A = [];
+  for (var i=0; i < 300; i++) {
+    A.push(Math.ceil(Math.random()*100));
+  }
+
+  var width = $(window).width()
+  var height = ($(window).height())*1/3;
+
+  window.onload = drawsvg(height, width, A);
 });
 
 function drawsvg(height, width, data) {
+  console.log(data);
   var svg = new bars(height, width);
   svg.setxscale(data.length, width);
   svg.setyscale(d3.max(data), height);
-  setTimeout(svg.drawsvg.bind(null, data), 1000);
+  setTimeout(svg.drawsvg.bind(null, data), 10);
   insertion(data, svg, height, 1);
 }
 
@@ -71,7 +80,7 @@ bars.prototype.drawsvg = function(data) {
 
   this.bars
     .attr("x", function(d) { return this.xscale(d.i);}.bind(this))
-    .attr("width", "10px")
+    .attr("width", "1px")
     .attr("y", function(d) { return this.height - this.yscale(d.data); }.bind(this))
     .attr("height", function(d) { return this.yscale(d.data); }.bind(this))
 

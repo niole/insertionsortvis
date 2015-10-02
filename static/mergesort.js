@@ -12,9 +12,10 @@ function shift(A,i,j, svg, height, start) {
     }
     i = j
     j -= 1
-    setTimeout(shift.bind(this, A,i,j, svg, height, start), 1000);
+    setTimeout(shift.bind(this, A,i,j, svg, height, start), 10);
+  } else {
+    setTimeout(insertion.bind(null, A, svg, height, start+1), 10);
   }
-  setTimeout(insertion.bind(null, A, svg, height, start+1), 1000);
 }
 
 function insertion(A, svg, height, m) {
